@@ -44,9 +44,8 @@ async function start() {
 
 
 async function guessing(){
-
-  guess = Math.floor((min + max) / 2)
-
+    
+    guess = Math.floor((min + max) / 2)
   let input = await ask(`Is your number ${guess}? Enter 'y' or 'n'.\n`)
    if (input === 'y'){
     console.log(`Woohoo! I guessed it. Your number was ${guess}`)
@@ -59,6 +58,8 @@ async function guessing(){
         return lower()
       }
     
+
+  
 
 function higher(){
   min = guess + 1
@@ -73,5 +74,6 @@ function lower(){
 }
 }
 }
+
 
 setUp();
