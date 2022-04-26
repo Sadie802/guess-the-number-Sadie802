@@ -9,7 +9,7 @@ function ask(questionText) {
 }
 // ------^------^------^-------^------//
 
-async function gameStart (){
+async function reverseGameStart (){
     let instructions = await ask(`Welcome to the number guessing game!!!\nDo you want to read the instructions on how to play? Type "y" or "n".\n`)
     //instructions for game play
     if (instructions === 'y'){
@@ -23,7 +23,7 @@ async function gameStart (){
             //catching incorrect user input
             } else {
                 console.log(`You need to enter "y" or "n". Let's try again`)
-                return gameStart()
+                return reverseGameStart()
             }
     //skipping game play instructions
     } else if (instructions === 'n'){
@@ -32,7 +32,7 @@ async function gameStart (){
     //catching incorrect user input
     }else {
         console.log(`I don't know what "${instructions}" means. Let's start over.`)
-        return gameStart()
+        return reverseGameStart()
     }
 
     async function playing (){
@@ -42,9 +42,9 @@ async function gameStart (){
         //generating random number between 0-1, multiplying by user set max number, adding 1 so secret number inclusive of user set max, rounding number down to nearest integer.
         let secretNumber = Math.floor(Math.random() * max + 1) 
         console.log("Still thinking.......\n ..... \n ...... \n ....... \n Okay! I got it.")
-        return guessing()
+        return guessingReverse()
 
-        async function guessing(){
+        async function guessingReverse(){
             //assigning user's guess to variable
             let userGuess = await ask('Guess my number: \n')
             //checking if user guess is same as secret number
@@ -52,7 +52,7 @@ async function gameStart (){
                 console.log(`Woohoo! You guessed it! My secret number was ${secretNumber}`)
                 let playAgain = await ask('Would you like to play again? Type "y" or "n".\n')
                     if (playAgain === 'y'){
-                        return gameStart()//starting game over if user wants to play again
+                        return reverseGameStart()//starting game over if user wants to play again
                     } else if (playAgain === 'n'){
                         process.exit()//exiting game if user does not want to play again
                     //catching incorrect user input - booting user out of game
@@ -65,18 +65,18 @@ async function gameStart (){
             if (userGuess > secretNumber){
                 max = (userGuess - 1)//assigning new max to be one less than previous user guess
                 console.log(`Too high! My number is less than your guess of ${userGuess}. Guess again -- BUT REMEMBER -- now the max number is ${max} \n`)
-                return guessing()//restarting guessing function
+                return guessingReverse()//restarting guessing function
             }
 
             //checking if user guess lower than secret number
             if (userGuess < secretNumber){
                 min = (+userGuess + +1)//assigning new max to be one higher than previous user guess
                 console.log(`Too low! My number is greater than your guess of ${userGuess}. Guess again -- BUT REMEMBER -- now the minimum number ${min}`)
-                return guessing()//restarting guessing function
+                return guessingReverse()//restarting guessing function
             }
         }
     }
 
 }
 
-gameStart()
+reverseGameStart()
